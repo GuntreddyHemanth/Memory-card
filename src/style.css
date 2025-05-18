@@ -1,0 +1,334 @@
+:root {
+  --primary: #4A6DE5;
+  --primary-dark: #3A5BD1;
+  --accent: #FFD166;
+  --success: #4CB963;
+  --error: #F25F5C;
+  --neutral-100: #F8F9FA;
+  --neutral-200: #E9ECEF;
+  --neutral-300: #DEE2E6;
+  --neutral-400: #CED4DA;
+  --neutral-500: #ADB5BD;
+  --neutral-600: #6C757D;
+  --neutral-700: #495057;
+  --neutral-800: #343A40;
+  --neutral-900: #212529;
+  
+  --card-size: 80px;
+  --grid-gap: 8px;
+  
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  
+  color: var(--neutral-800);
+  background-color: var(--neutral-100);
+  
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+#app {
+  max-width: 800px;
+  width: 100%;
+  padding: 2rem;
+  text-align: center;
+}
+
+.header {
+  margin-bottom: 2rem;
+}
+
+h1 {
+  font-size: 2.5rem;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+  color: var(--primary);
+}
+
+.description {
+  color: var(--neutral-600);
+  margin-bottom: 1rem;
+}
+
+.game-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.info-item {
+  background-color: var(--neutral-200);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.difficulty-controls {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  justify-content: center;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: var(--primary);
+  color: white;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+button:hover {
+  background-color: var(--primary-dark);
+}
+
+button:focus,
+button:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+button.secondary {
+  background-color: var(--neutral-300);
+  color: var(--neutral-800);
+}
+
+button.secondary:hover {
+  background-color: var(--neutral-400);
+}
+
+button.active {
+  background-color: var(--primary-dark);
+  color: white;
+}
+
+.game-board {
+  display: grid;
+  grid-template-columns: repeat(4, var(--card-size));
+  grid-gap: var(--grid-gap);
+  margin: 0 auto;
+  justify-content: center;
+}
+
+.game-board.medium {
+  grid-template-columns: repeat(5, var(--card-size));
+}
+
+.game-board.hard {
+  grid-template-columns: repeat(6, var(--card-size));
+}
+
+.card {
+  width: var(--card-size);
+  height: var(--card-size);
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s;
+  cursor: pointer;
+}
+
+.card.flipped {
+  transform: rotateY(180deg);
+}
+
+.card.matched .card-front {
+  background-color: var(--success);
+  color: white;
+}
+
+.card-front, .card-back {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-front {
+  background-color: var(--accent);
+  transform: rotateY(180deg);
+}
+
+.card-back {
+  background-color: var(--primary);
+  color: white;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+}
+
+.modal.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.modal h2 {
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+.modal p {
+  margin-bottom: 1.5rem;
+  color: var(--neutral-700);
+}
+
+.stats {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.stat-item {
+  background-color: var(--neutral-200);
+  padding: 0.5rem;
+  border-radius: 4px;
+  text-align: center;
+  flex: 1;
+  margin: 0 0.25rem;
+}
+
+.stat-value {
+  font-weight: 600;
+  color: var(--primary);
+  font-size: 1.25rem;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #f00;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Best score table */
+.best-scores {
+  margin-top: 2rem;
+  overflow-x: auto;
+}
+
+.best-scores table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+
+.best-scores th {
+  background-color: var(--primary);
+  color: white;
+  font-weight: 500;
+  padding: 0.5rem;
+  text-align: left;
+}
+
+.best-scores td {
+  padding: 0.5rem;
+  border-bottom: 1px solid var(--neutral-300);
+}
+
+.best-scores tr:nth-child(even) {
+  background-color: var(--neutral-200);
+}
+
+.no-scores {
+  color: var(--neutral-600);
+  padding: 1rem;
+  text-align: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  :root {
+    --card-size: 60px;
+    --grid-gap: 6px;
+  }
+  
+  #app {
+    padding: 1rem;
+  }
+  
+  h1 {
+    font-size: 1.8rem;
+  }
+  
+  .game-info {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .difficulty-controls {
+    flex-wrap: wrap;
+  }
+  
+  button {
+    padding: 0.5em 1em;
+    font-size: 0.9em;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  :root {
+    --card-size: 70px;
+  }
+}
